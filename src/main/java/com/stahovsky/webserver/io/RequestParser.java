@@ -11,22 +11,22 @@ import java.io.IOException;
 
 public class RequestParser {
 
-    private final static String SPACE_WITH_COLON_PATTERN = ":\s";
+    private final static String COLON_PATTERN_WITH_SPACE = ":\s";
     private final static String SPACE_PATTERN = "\s";
     private final static String COLON_PATTERN = ":";
 
     public RequestParser() {
     }
 
-    public Request parse(BufferedReader reader) {
+    public Request parse(BufferedReader socketReader) {
         Request request = new Request();
 
         try {
-            String requestContent = reader.readLine();
+            String requestContent = socketReader.readLine();
             ValidityManager.validateHttpStartLine(requestContent);
             injectUriAndMethod(requestContent, request);
 
-            while ((requestContent = reader.readLine()) != null && !requestContent.isEmpty()) {
+            while ((requestContent = socketReader.readLine()) != null && !requestContent.isEmpty()) {
                 injectHeaders(requestContent, request);
             }
             return request;
@@ -36,8 +36,7 @@ public class RequestParser {
         }
     }
 
-    static void injectUriAndMethod(String requestContent, Request request) {
-
+     static void injectUriAndMethod(String requestContent, Request request) {
         String[] startLine = requestContent.split(SPACE_PATTERN, 3);
         String requestHttpMethod = startLine[0];
         String requestUri = startLine[1];
@@ -52,13 +51,14 @@ public class RequestParser {
         request.setHttpVersion(requestHttpVersion);
     }
 
-    static void injectHeaders(String requestContent, Request request) {
+     static void injectHeaders(String requestContent, Request request) {
         if (requestContent.contains(COLON_PATTERN)) {
-            String[] requestHeaders = requestContent.split(SPACE_WITH_COLON_PATTERN);
+            String[] requestHeaders = requestContent.split(COLON_PATTERN_WITH_SPACE);
             String headersKey = requestHeaders[0];
             String headersValue = requestHeaders[1];
             request.setHeaders(headersKey, headersValue);
-        }
+        } else
+            throw new ServerException(HttpStatus.BAD_REQUEST);
     }
 }
 
