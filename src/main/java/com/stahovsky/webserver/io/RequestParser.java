@@ -8,8 +8,7 @@ import com.stahovsky.webserver.validitymanager.ValidityManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-
-public class RequestParser {
+ public  class RequestParser {
 
     private final static String COLON_PATTERN_WITH_SPACE = ":\s";
     private final static String SPACE_PATTERN = "\s";

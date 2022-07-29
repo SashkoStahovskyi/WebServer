@@ -1,8 +1,7 @@
-package com.stahovsky.webserver;
+package com.stahovsky.webserver.io;
 
 import com.stahovsky.webserver.entity.Request;
 import com.stahovsky.webserver.exception.ServerException;
-import com.stahovsky.webserver.io.RequestParser;
 import com.stahovsky.webserver.validitymanager.ValidityManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static com.stahovsky.webserver.io.RequestParser.injectUriAndMethod;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RequestParserTest {
+class InjectUriAndMethodTest {
 
     private final static String START_LINE_WITHOUT_SPACES = "GET/wiki/somePageHTTP/1.1";
     private final static String NOT_CORRECT_HTTP_VERSION = "GET /wiki/somePage NOT/1.1";

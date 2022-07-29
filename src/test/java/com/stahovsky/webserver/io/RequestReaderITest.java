@@ -1,4 +1,4 @@
-package com.stahovsky.webserver;
+package com.stahovsky.webserver.io;
 
 import com.stahovsky.webserver.exception.ServerException;
 import com.stahovsky.webserver.io.RequestReader;
